@@ -5,11 +5,21 @@ async function getAllUsernames() {
     return rows
 }
 
+async function getUsernamesFromSearch(search) {
+    // case-insensitive
+    const { rows } = await pool.query("SELECT * FROM usernames WHERE username ILIKE $1", [`%${search}%`])
+    return rows
+}
+
+async function deleteAllUsers() {
+    await pool.query("DELETE FROM usernames")
+}
+
 async function insertUsername(username) {
     // prevent SQL injections using query parameterization
     await pool.query("INSERT INTO usernames (username) VALUES ($1)", [username])
 }
 
 module.exports = {
-    getAllUsernames, insertUsername
+    getAllUsernames, insertUsername, getUsernamesFromSearch, deleteAllUsers
 }
