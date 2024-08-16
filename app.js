@@ -1,8 +1,14 @@
 const express = require('express')
 const app = express()
 const userRouter = require('./routes/userRouter')
-
 require('dotenv').config()
+console.log('these are env variables from app.js')
+console.log(process.env.DB_USER)
+console.log(process.env.DB_HOST)
+console.log(process.env.PORT)
+console.log(process.env.PASSWORD)
+console.log(process.env.DATABASE)
+
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
 app.use('/', userRouter)
